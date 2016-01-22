@@ -47,9 +47,9 @@ public class RoutePlanDemo extends Activity implements BaiduMap.OnMapClickListen
     Button mBtnPre = null;//上一个节点
     Button mBtnNext = null;//下一个节点
     int nodeIndex = -1;//节点索引,供浏览节点时使用
-    RouteLine route = null;
-    OverlayManager routeOverlay = null;
-    boolean useDefaultIcon = false;
+    RouteLine route = null;  //Route 路线
+    OverlayManager routeOverlay = null;  //覆盖物管理  路线覆盖物
+    boolean useDefaultIcon = false;  //用户定位图标
     private TextView popupText = null;//泡泡view
 
     //地图相关，使用继承MapView的MyRouteMapView目的是重写touch事件实现泡泡处理

@@ -30,23 +30,24 @@ import com.baidu.mapapi.model.LatLng;
 public class LocationDemo extends Activity {
 
 	// 定位相关
-	LocationClient mLocClient;
-	public MyLocationListenner myListener = new MyLocationListenner();
-	private LocationMode mCurrentMode;
-	BitmapDescriptor mCurrentMarker;
+	LocationClient mLocClient;  //定位客户端
+	public MyLocationListenner myListener = new MyLocationListenner();  //定位监听
+	private LocationMode mCurrentMode; //定位模式  普通
+	BitmapDescriptor mCurrentMarker;  //当前标识
 
 	MapView mMapView;
 	BaiduMap mBaiduMap;
 
 	// UI相关
 	OnCheckedChangeListener radioButtonListener;
-	Button requestLocButton;
+	Button requestLocButton;  //请求定位按钮
 	boolean isFirstLoc = true;// 是否首次定位
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_location);
+		//设置按钮
 		requestLocButton = (Button) findViewById(R.id.button1);
 		mCurrentMode = LocationMode.NORMAL;
 		requestLocButton.setText("普通");
@@ -56,6 +57,7 @@ public class LocationDemo extends Activity {
 				case NORMAL:
 					requestLocButton.setText("跟随");
 					mCurrentMode = LocationMode.FOLLOWING; //保证定位图标在地图中心
+					//设置定位配置（当前模式，显示的图片）
 					mBaiduMap
 							.setMyLocationConfigeration(new MyLocationConfiguration(
 									mCurrentMode, true, mCurrentMarker));
@@ -78,7 +80,8 @@ public class LocationDemo extends Activity {
 			}
 		};
 		requestLocButton.setOnClickListener(btnClickListener);
-
+		
+         //设置单选框
 		RadioGroup group = (RadioGroup) this.findViewById(R.id.radioGroup);
 		radioButtonListener = new OnCheckedChangeListener() {
 			@Override
@@ -113,7 +116,7 @@ public class LocationDemo extends Activity {
 		LocationClientOption option = new LocationClientOption();
 		option.setOpenGps(true);// 打开gps
 		option.setCoorType("bd09ll"); // 设置坐标类型
-		option.setScanSpan(1000);
+		option.setScanSpan(1000);//扫描间隔时间
 		mLocClient.setLocOption(option);
 		mLocClient.start();
 	}
@@ -128,17 +131,22 @@ public class LocationDemo extends Activity {
 			// map view 销毁后不在处理新接收的位置
 			if (location == null || mMapView == null)
 				return;
+			//获得定位信息
 			MyLocationData locData = new MyLocationData.Builder()
 					.accuracy(location.getRadius())
 					// 此处设置开发者获取到的方向信息，顺时针0-360
 					.direction(100).latitude(location.getLatitude())
 					.longitude(location.getLongitude()).build();
 			mBaiduMap.setMyLocationData(locData);
+			//如果是第一次定位
 			if (isFirstLoc) {
 				isFirstLoc = false;
+				 //定义经纬度
 				LatLng ll = new LatLng(location.getLatitude(),
 						location.getLongitude());
+				//得到地图状态更新对象
 				MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(ll);
+				//地图更新动画状态
 				mBaiduMap.animateMapStatus(u);
 			}
 		}

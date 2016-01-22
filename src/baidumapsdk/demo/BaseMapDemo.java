@@ -22,6 +22,7 @@ public class BaseMapDemo extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		//如果有传入某个点的经纬度，就按照某个点的经纬度为中心，显示地图
 		Intent intent = getIntent();
 		if (intent.hasExtra("x") && intent.hasExtra("y")) {
 			// 当用intent参数时，设置中心点为指定点
