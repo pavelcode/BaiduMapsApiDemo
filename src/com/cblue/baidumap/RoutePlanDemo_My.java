@@ -26,11 +26,14 @@ import com.baidu.mapapi.search.route.RoutePlanSearch;
 import com.baidu.mapapi.search.route.TransitRouteResult;
 import com.baidu.mapapi.search.route.WalkingRouteResult;
 
-
-
-
-
-
+/**
+ * 路线实现
+ * 得到路线搜索对象，并设置路线监听搜索
+ * 得到开始点，结束点，进行汽车路线搜索，在搜索结果中定义开始点和结束点的图片，并显示
+ * 得到路线的节点信息，并以此打印节点
+ * @author pavel
+ *
+ */
 public class RoutePlanDemo_My extends Activity implements
 		OnGetRoutePlanResultListener {
 
@@ -75,20 +78,9 @@ public class RoutePlanDemo_My extends Activity implements
 				routePlanSearch.drivingSearch(new DrivingRoutePlanOption().from(
 						stratNode).to(endNode));
 				
-		
 			}
 		});
-    
-
-	
-
-	
-
-		
-
 	}
-
-	
 
 	@Override
 	public void onGetDrivingRouteResult(DrivingRouteResult result) {
@@ -107,13 +99,12 @@ public class RoutePlanDemo_My extends Activity implements
 			myDriverRouteOverlay.addToMap(); // 添加到地图上
 			myDriverRouteOverlay.zoomToSpan(); /* 缩放地图 */
 			
-			
-			getNodeInfo();
+			getNodeInfo(routeLine);
 		}
 
 	}
 	// 获取节点信息
-	private void getNodeInfo() {
+	private void getNodeInfo(RouteLine routeLine) {
 		// TODO Auto-generated method stub
 		for (int i = 0; i < routeLine.getAllStep().size() - 1; i++) {
 			Object step = routeLine.getAllStep().get(i);

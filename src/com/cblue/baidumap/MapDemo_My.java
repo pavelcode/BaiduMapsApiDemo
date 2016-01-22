@@ -12,6 +12,14 @@ import com.baidu.mapapi.model.LatLng;
 import android.app.Activity;
 import android.os.Bundle;
 
+/**
+ * 地图实现（从官网拷贝）
+ * 
+ *  注意：使用真机测试，一定要打开网络
+ *  得到地图对象，设置各种地图
+ * @author pavel
+ *
+ */
 public class MapDemo_My extends Activity {
 	
 	

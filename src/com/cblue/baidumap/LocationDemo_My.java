@@ -21,8 +21,19 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 
-//定位必须使用真机测试
-
+/**
+ * 得到百度地图对象  （从官网拷贝）
+ * 开启监听模式
+ * 设置定位参数（监听模式，定位显示的图片）
+ * 设置定位客户端  给定位客户端设置定位选项（打开gps，经纬度坐标系，扫描间隔，地址信息，设置定位提示）
+ * 设置客户端的定位监听   （得到定位数据之后，把定位数据显示在地图上。如果是第一次，根据经纬度更新当前状态，并打印定位信息）
+ * 
+ * 注意：显示地址，在LocationClientOption设置显示地址
+ * 
+ * 定位必须使用真机测试
+ * @author pavel
+ *
+ */
 public class LocationDemo_My extends Activity {
 	
 	
@@ -52,6 +63,9 @@ public class LocationDemo_My extends Activity {
 	    locationClientOption.setCoorType("bd09ll");  //经纬度坐标系
 	    locationClientOption.setScanSpan(1000); //设置扫描间隔 默认是一次，既只定位一次
 	    locationClientOption.setIsNeedAddress(true); //需要地址信息
+	  //  locationClientOption.setIsNeedLocationDiscrpt(true);  设置是否需要位置语义化结果
+	  //  locationClientOption.setIsNeedLocationPoiList(true);  设置是否需要POI
+	    
 	    locationClientOption.setLocationNotify(true);//设置是否当gps有效的时候按照1秒1次频率输出
 		locationClient.setLocOption(locationClientOption);
 		
@@ -132,7 +146,7 @@ public class LocationDemo_My extends Activity {
             sb.append("\nsatellite : ");
             sb.append(location.getSatelliteNumber());
             sb.append("\nheight : ");
-            sb.append(location.getAltitude());// 单位：米
+            sb.append(location.getAltitude());// 单位：米l
             sb.append("\ndirection : ");
             sb.append(location.getDirection());// 单位度
             sb.append("\naddr : ");
